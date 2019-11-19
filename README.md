@@ -12,5 +12,6 @@ pip install github3.py
 Before running the file must be edited to have the username and password of the account to be accessed.
 
 ## Social Graph Assignment
-This assignment is in progress
+This assignment is in progres.
+The assigment is done using vue.js framework and d3.js library to build visualisations. Octokit/rest.js is used to interrogate the API. The assignment is located in GitInterrogation/githubSocialGraph. 
 
