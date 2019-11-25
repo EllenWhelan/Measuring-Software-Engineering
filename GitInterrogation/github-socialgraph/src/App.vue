@@ -3,15 +3,11 @@
     <!-- Below this is welcome page and search stuff-->
       <WelcomePage v-if="!landed" v-on:click.native="landed=true"></WelcomePage>
     <div v-if="landed" class="navbar navbar-expand-lg navbar-light bg-light mb-2">
-        <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary" v-bind:class="{active: page.active}" v-for="page in pages" v-bind:key="page.id">
-              <input type="button" name="options" v-bind:id="'nav-button-'+page.id" autocomplete="off" v-on:click="changePage(page)"> {{page.name}}
-          </label>
-        </div> -->
         <div class="form-inline ml-auto" v-if=pages[0].active>
+          <p class=head> GitHub User Search</p>
           <form @submit.prevent>
-            <input class="form-control mr-sm-2" type="search" placeholder="Username" v-model="currentUser" id="user_search">
-            <button class="btn my-2 my-sm-0" type="submit" id="search_button" v-on:click=";loadingUser = true;findUser(); changePage(pages[1])" :class="error ? 'btn-outline-danger' : 'btn-outline-primary'">
+            <input class="srch" type="search" placeholder="Enter a Username" v-model="currentUser" id="user_search">
+            <button content="Return" class="btn" type="submit" id="search_button" v-on:click=";loadingUser = true;findUser(); changePage(pages[1])" >
               <span v-if="loadingUser" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Search</button>
               </form>
         </div>
@@ -24,8 +20,9 @@
         </div> 
         
       </div>
+      <!-- This is button to return to search page -->
       <div v-if=pages[1].active>
-        <button type="button" v-on:click="changePage(pages[0])"></button>
+        <button class=btn2 type="button" v-on:click="changePage(pages[0])"> Back To Search </button>
       </div> 
       <b-alert
       v-model="error"
@@ -95,12 +92,73 @@ export default {
 </script>
 
 <style>
-/* #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+ #app {
+  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+  color: rgb(100, 99, 99);
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px; 
-} */
+  margin-top: 20%; 
+} 
+.head{
+  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+  color: rgb(100, 99, 99);
+  font-size: 40px;
+  text-align: center;
+  margin: 0%;
+}
+.btn{
+  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+  color: white;
+  text-align: center;
+  transition: all 0.2s;
+  background-color:rgb(61, 59, 59);
+  display: inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0 5px 5px 0;
+  box-sizing: border-box;
+
+}
+.btn:hover{
+  background-color:whitesmoke;
+  color:black;
+}
+@media all and (max-width:30em){
+  btn{
+    display:block;
+    margin:0.4em auto;
+  }
+}
+
+.srch{
+  border: 1px solid rgb(61, 59, 59);
+  border-radius: 5px 0 0 5px;
+  height: 25px;
+  /* padding:0.35em 1.2em; */
+}
+
+.btn2{
+  background: rgb(61, 59, 59);
+  width: 180px;
+  padding: 4px 0;
+  margin-bottom:25%;
+  margin-top:15%;
+  position: static;
+  left: 50%;
+  top: 50%;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid rgb(61, 59, 59);
+  color: white;
+  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+  color: white;
+  font-size: 15px;
+  font-weight:10;
+
+
+  
+}
+
+
+
 </style> 

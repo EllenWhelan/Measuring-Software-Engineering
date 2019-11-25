@@ -70,7 +70,7 @@ export default {
             }
             let width = window.innerHeight/0.5
             let height = window.innerHeight/1.7
-            let margin = 10//65
+            let margin = 10
             let radius = Math.min(width, height) / 2 - margin
             let svg = d3.select("#language_pichart")
                         .append("svg")
@@ -128,7 +128,7 @@ export default {
 .langCard{
     margin-top: 10px;
     margin-bottom: 10px;
-    border: solid rgb(153, 204, 255);
+    border:2px solid rgb(153, 204, 255);
     text-align: center;
     font-size: 20px;
     font-style:normal;
