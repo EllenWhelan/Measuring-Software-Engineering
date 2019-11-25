@@ -30,6 +30,7 @@ export default {
     created: function() {
         this.getLanguagePercentages()
     },
+     
     methods: {
         getLanguagePercentages() {
             let promises = [];
@@ -58,7 +59,7 @@ export default {
                             }
                         }
                     })
-            
+                   
                     this.makePiChart()
                 })
             })

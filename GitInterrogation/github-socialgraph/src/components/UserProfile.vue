@@ -1,7 +1,6 @@
 
 <template>
 <div class=prof>
-<p class=heading>User Profile</p>  
   <div class=card> 
         <h5 class=header v-if="userData.name" >{{userData.name}}</h5>
         <h5 class=header v-if="!userData.name">{{userData.login}}</h5>
@@ -9,6 +8,7 @@
         <p> Username: {{userData.login}}</p>
         <p > Followers: {{userData.followers}}</p>
         <p> Following: {{userData.following}}</p>
+        <p> {{userData.type}}</p>
         <p v-if="userData.company" > Company: {{userData.company}}</p>
         <p v-if="!userData.company"> Company: Unknown </p>
         <p v-if="userData.Bio"> Bio: {{userData.bio}}</p>
@@ -34,18 +34,7 @@ export default {
 </script>
 
 <style>
-.heading{
-  color: rgb(46, 44, 44);
-  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
-  font-size: 80px;
-  background-color:white;
-  position: static;
-  text-align: center;
-  padding-bottom: 0%;
- padding-top:0%;
-  
-  
-}
+
 .card{
   color: rgb(46, 44, 44);;
   font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;

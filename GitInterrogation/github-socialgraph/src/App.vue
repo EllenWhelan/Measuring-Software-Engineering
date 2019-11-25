@@ -13,10 +13,17 @@
         </div>
       </div>
       <!-- below this is graphs and profile stuff-->
-     <div class="d-flex flex-row pl-2" v-if="userData && pages[1].active">
-        <div class="d-flex flex-column flex-wrap fade-in-left">
+     <div v-if="userData && pages[1].active">
+        <div>
+          <p class=headingProfile>User Profile</p>  
+          <p> This project aims to explore the link between the laguages known by a GitHub user and that users popularity. 
+            The following graphs compare languages of users and the amount of stars they have, as well as the amount of followers. </p>
           <UserProfile v-bind:userData="userData"></UserProfile>
           <LanguagePi v-bind:userName="userData.login"></LanguagePi>
+          <p> This graph breaks down all the code in {{userData.login}}'s Repositories into languages. 
+            It shows clearly the different languages {{userData.login}} is familar with and how much they use each language.</p>
+            <LanguageFollowerFor1User v-bind:userName="userData.login"></LanguageFollowerFor1User>
+            <PopularityGraph v-bind:userName="userData.login"></PopularityGraph>
         </div> 
         
       </div>
@@ -41,12 +48,16 @@
 import WelcomePage from './components/WelcomPage.vue'
 import UserProfile from './components/UserProfile.vue'
 import LanguagePi from './components/LanguagePi.vue'
+import LanguageFollowerFor1User from './components/LanguageFollowerFor1User'
+import PopularityGraph from './components/PopularityGraph'
 export default {
   name: 'app',
   components: {
     UserProfile,
     WelcomePage,
-    LanguagePi
+    LanguagePi,
+    LanguageFollowerFor1User,
+    PopularityGraph
   },
   data: function() {
     return {
@@ -156,6 +167,19 @@ export default {
   font-weight:10;
 
 
+  
+}
+.headingProfile{
+  color: rgb(46, 44, 44);
+  font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+  font-size: 80px;
+  background-color:white;
+  position: static;
+  text-align: center;
+  padding-bottom: 0%;
+ padding-top:0%;
+ margin:0%;
+  
   
 }
 
