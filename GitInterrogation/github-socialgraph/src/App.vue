@@ -20,7 +20,9 @@
      <div class="d-flex flex-row pl-2" v-if="userData && pages[1].active">
         <div class="d-flex flex-column flex-wrap fade-in-left">
           <UserProfile v-bind:userData="userData"></UserProfile>
-        </div>
+          <LanguagePi v-bind:userName="userData.login"></LanguagePi>
+        </div> 
+        
       </div>
       <div v-if=pages[1].active>
         <button type="button" v-on:click="changePage(pages[0])"></button>
@@ -41,11 +43,13 @@
 <script>
 import WelcomePage from './components/WelcomPage.vue'
 import UserProfile from './components/UserProfile.vue'
+import LanguagePi from './components/LanguagePi.vue'
 export default {
   name: 'app',
   components: {
     UserProfile,
-    WelcomePage
+    WelcomePage,
+    LanguagePi
   },
   data: function() {
     return {
@@ -91,12 +95,12 @@ export default {
 </script>
 
 <style>
-#app {
+/* #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  margin-top: 60px; 
+} */
+</style> 
