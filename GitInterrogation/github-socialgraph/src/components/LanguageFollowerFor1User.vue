@@ -5,9 +5,9 @@
         <p> Languages Mastered  vs       Follower Count </p>
     </div>
 </template>
+
 <script>
 export default {
-//   name: 'LangFollfor1user',
   data: function(){
         return {
             count: Object,
@@ -62,6 +62,7 @@ export default {
 </script>
 
 <style >
+
 .body{
     border: 2px solid ;
     position: static;
@@ -69,7 +70,7 @@ export default {
 
 .langCntButton{
     width:200px;
-    height: 200px;
+    height: 200px; 
     margin:1%;
     padding-left:0%;
     position:relative;
@@ -80,12 +81,11 @@ export default {
   background-color:rgb(61, 59, 59);
     
 }
+/* on hovering over button the text will appear  */
 .langCntButton:hover{
-    
   background-color:whitesmoke;
-
-
 }
+
 .follCntButton{
     width:200px;
     height: 200px;
@@ -96,12 +96,10 @@ export default {
   text-align: center;
   text-anchor: end;
   transition: all 0.2s;
-  background-color:rgb(61, 59, 59);
-    
+  background-color:rgb(61, 59, 59);   
 }
-.follCntButton:hover{
-    
+
+.follCntButton:hover{ 
   background-color:whitesmoke;
-  /* color:black; */
 }
 </style>

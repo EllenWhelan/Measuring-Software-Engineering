@@ -23,7 +23,10 @@
           <p> This graph breaks down all the code in {{userData.login}}'s Repositories into languages. 
             It shows clearly the different languages {{userData.login}} is familar with and how much they use each language.</p>
             <LanguageFollowerFor1User v-bind:userName="userData.login"></LanguageFollowerFor1User>
+            <p> These buttons show follower count versus language count for a user</p>
             <PopularityGraph v-bind:userName="userData.login"></PopularityGraph>
+            <p> This is the most ambitious graph. It shows the relationship between languages
+               in users repos and users follower counts, for each of the users followers.</p>
         </div> 
         
       </div>

@@ -8,7 +8,7 @@ require("dotenv").config()
 console.log(process.env)
 const octokit = Octokit({ //create ocotkit object
  
-  auth: `token ${process.env.VUE_APP_GITHUB_TOKEN}`, //gen tkoen in .env file 
+  auth: `token ${process.env.VUE_APP_GITHUB_TOKEN}`, //git auth token in .env file 
   userAgent: 'github vis'
 })
 
