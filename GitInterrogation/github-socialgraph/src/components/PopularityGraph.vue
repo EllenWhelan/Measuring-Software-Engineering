@@ -19,8 +19,42 @@ data: function(){
   },
  
   methods: {
+//       getLanguages(user) {
+//           let promises=[];
+//            this.$octokit.repos.listForUser({ username: user.userName}) //list all repos first 
+//            .then(res =>{ //where res is obj of repos
+//                 let userRepos = res.data.map(e => e.name); //make userRepos=array of repo names
+//                 //iterate through each e repo in userRepos and for each e list langauges and put in lang array
+//                 userRepos.forEach(e => {promises.push(this.$octokit.repos.listLanguages({ owner: this.userName,repo: e}))
+//                 })
+//                 //return this.promises.data.length
+//                 Promise.all(promises).then(repoStats => {
+//                     this.count = Object()
+//                     repoStats.map(e =>    
+//                             e.data
+//                     ).filter(e => 
+//                         Object.keys(e).length
+//                     ).forEach(e => {
+//                         for(let i of Object.keys(e)){
+//                             if(i in this.count){
+//                                 this.count[i] += e[i]
+//                             }else{
+//                                 this.count[i] = e[i]
+//                             }
+//                         }
+//                     })
+                
+//                     //this is causing major problems 
+//                 })
+//             })
+//       },
 
-}
+
+      
+
+
+    },
+  
 }
   
 

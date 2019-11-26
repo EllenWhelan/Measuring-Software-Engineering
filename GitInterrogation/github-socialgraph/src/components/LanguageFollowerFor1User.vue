@@ -26,6 +26,7 @@ export default {
         this.getLanguages()
     },
   methods: {
+      //this method is currently not working
       getLanguages() {
           let promises=[];
            this.$octokit.repos.listForUser({ username: this.userName}) //list all repos first 
@@ -82,7 +83,7 @@ export default {
 .langCntButton:hover{
     
   background-color:whitesmoke;
-  /* color:black; */
+
 
 }
 .follCntButton{
