@@ -19,41 +19,53 @@ data: function(){
   },
  
   methods: {
-//       getLanguages(user) {
-//           let promises=[];
-//            this.$octokit.repos.listForUser({ username: user.userName}) //list all repos first 
-//            .then(res =>{ //where res is obj of repos
-//                 let userRepos = res.data.map(e => e.name); //make userRepos=array of repo names
-//                 //iterate through each e repo in userRepos and for each e list langauges and put in lang array
-//                 userRepos.forEach(e => {promises.push(this.$octokit.repos.listLanguages({ owner: this.userName,repo: e}))
-//                 })
-//                 //return this.promises.data.length
-//                 Promise.all(promises).then(repoStats => {
-//                     this.count = Object()
-//                     repoStats.map(e =>    
-//                             e.data
-//                     ).filter(e => 
-//                         Object.keys(e).length
-//                     ).forEach(e => {
-//                         for(let i of Object.keys(e)){
-//                             if(i in this.count){
-//                                 this.count[i] += e[i]
-//                             }else{
-//                                 this.count[i] = e[i]
-//                             }
-//                         }
-//                     })
+      getLanguages(user) {
+          let promises=[];
+           this.$octokit.repos.listForUser({ username: user.userName}) //list all repos first 
+           .then(res =>{ //where res is obj of repos
+                let userRepos = res.data.map(e => e.name); //make userRepos=array of repo names
+                //iterate through each e repo in userRepos and for each e list langauges and put in lang array
+                userRepos.forEach(e => {promises.push(this.$octokit.repos.listLanguages({ owner: this.userName,repo: e}))
+                })
+                //return this.promises.data.length
+                Promise.all(promises).then(repoStats => {
+                    this.count = Object()
+                    repoStats.map(e =>    
+                            e.data
+                    ).filter(e => 
+                        Object.keys(e).length
+                    ).forEach(e => {
+                        for(let i of Object.keys(e)){
+                            this.count[i]=e[i];
+                            // if(i in this.count){
+                            //     this.count[i] += e[i]
+                            // }else{
+                            //     this.count[i] = e[i]
+                            // }
+                        }
+                    })
                 
-//                     //this is causing major problems 
-//                 })
-//             })
-//       },
+                    //this is causing major problems 
+                })
+            })
+      },
 
-
-      
-
-
-    },
+    getGraphData(){
+       
+          graphData=Object()
+          //takes user and attempts to get list of followers of that user 
+          this.$octokit.users.listFollowersForUser({ username: this.userName}) //list all followers of user first 
+           .then(res =>{
+               let followers = res.data.map(e => e.name); //map returned data to array
+                //iterate through each e follower in followers and for each e list langauges they have and put in graph data
+                followers.forEach(e => {graphData.push(getLanguages(e))})
+                //also add follower data
+                followers.forEach(e=> {graphData.push(e.followers)})
+           }
+    }
+},
+    
+           
   
 }
   
