@@ -32,12 +32,14 @@ export default {
     },
      
     methods: {
+        //this method finds languages in a users repo and returns a data oject
         getLanguagePercentages() {
             let promises = [];
             this.$octokit.repos.listForUser({
                 username: this.userName
             }).then(res => {
                 let userRepos = res.data.map(e => e.name);
+                
                 userRepos.forEach(e => {
                     promises.push(this.$octokit.repos.listLanguages({
                         owner: this.userName,
@@ -65,10 +67,8 @@ export default {
             })
         },
         makePiChart() {
-            let piChart = d3.select("#pie-graph")
-            if(piChart){
-                piChart.remove()
-            }
+            // let piChart = d3.select("#pie-graph")
+            //arbitrary figures used for measurements decided upon by experimenting
             let width = window.innerHeight/0.5
             let height = window.innerHeight/1.7
             let margin = 10
@@ -89,7 +89,7 @@ export default {
                         .value(function(d) {return d.value;})
             
         
-            
+            //render slices of tasty pie
             svg
                 .selectAll('allSlices')
                 .data(pi(d3.entries(data)))
@@ -100,7 +100,7 @@ export default {
                 .attr("stroke", "white")
                 .style("stroke-width", "2px")
                 .style("opacity", 0.65)
-            
+            //render the dots
             svg.selectAll("circleKeys")
                 .data(Object.keys(data))
                 .enter()
@@ -109,6 +109,7 @@ export default {
                 .attr("cy", 175)
                 .attr("r", 5)
                 .style("fill", function(d){return color(d)})
+            //render the keys 
             svg.selectAll("labels")
                .data(Object.keys(data))
                .enter()

@@ -6,85 +6,110 @@
 </template>
 
 <script>
+ const d3 = require("d3")
 export default {
 data: function(){
         return {
-            count: Object,
-            graphData: Object,
+            count: [], //array of languages
+            graphData: [], // array of objects [{x1,y1}, {x2,y2}...{xn,yn}]
             
         }
+        
     },
   props:{
       userName: String
   },
+  watch: {
+        userName: function() {
+            this.getGraphData()
+            
+        }
+    },
+    created: function() {
+        this.getGraphData()
+        
+    },
  
   methods: {
-      getLanguages(user) {
-          let promises=[];
-           this.$octokit.repos.listForUser({ username: user.userName}) //list all repos first 
-           .then(res =>{ //where res is obj of repos
-                let userRepos = res.data.map(e => e.name); //make userRepos=array of repo names
-                //iterate through each e repo in userRepos and for each e list langauges and put in lang array
-                userRepos.forEach(e => {promises.push(this.$octokit.repos.listLanguages({ owner: this.userName,repo: e}))
-                })
-                //return this.promises.data.length
-                Promise.all(promises).then(repoStats => {
-                    this.count = Object()
-                    repoStats.map(e =>    
-                            e.data
-                    ).filter(e => 
-                        Object.keys(e).length
-                    ).forEach(e => {
-                        for(let i of Object.keys(e)){
-                            this.count[i]=e[i];
-                            // if(i in this.count){
-                            //     this.count[i] += e[i]
-                            // }else{
-                            //     this.count[i] = e[i]
-                            // }
-                        }
-                    })
-                
-                    //this is causing major problems 
-                })
-            })
-      },
-
-    getGraphData(){
+  
+       getGraphData(){
        
-          graphData=Object()
+          this.graphData=[]
           //takes user and attempts to get list of followers of that user 
-          this.$octokit.users.listFollowersForUser({ username: this.userName}) //list all followers of user first 
+          this.$octokit.users.listFollowersForUser({ username: this.userName})  
            .then(res =>{
-               let followers = res.data.map(e => e.name); //map returned data to array
-                //iterate through each e follower in followers and for each e list langauges they have and put in graph data
-                followers.forEach(e => {graphData.push(getLanguages(e))})
-                //also add follower data
-                followers.forEach(e=> {graphData.push(e.followers)})
-           }
-           //return graphData;
+               let followers = res.data.map(e => e.login); //map returned data to array of followers logins
+                //creates temp array with [follower.followercount, follower.langCount] then pushes tempArray to graphdata
+                let tempObj =Object();
+                let tempUser= Object();
+                //iterates through all users followers
+                for (let i=0; i<followers.length; i+=1){
+                    //gets user data of each follower[i] and initialises temp user
+                    this.$octokit.users.getByUsername({ username: followers[i]})
+                    .then(res =>{tempUser=res.data});
+                    
+                    //lists all repos of that follower
+                    this.$octokit.repos.listForUser({username: followers[i]}.
+                    then(res =>{
+                        //maps user repos by their language to new array userRepos
+                        let userRepos = res.data.map(e => e.language); 
+                        this.count=[];
+                        for( let i=0; i<userRepos.length; i+=1){
+                            if(userRepos[i] in this.count ==false) this.count.push(userRepos[i]);
+                                        
+                         }
+                         //create temporary object of followers name, their follow count and their language count
+                        tempObj={name: tempUser.login, followCount:tempUser.followers, languageCount:this.count.length}; 
+                        this.graphData.push(tempObj); //push this object to array graphData 
+                    })
+                    );   
+                    
+                }
+                    
+           
+           this.createPOPScatter()
+            
+           })
+      
     },
+      
 
-     createPopGraph(){
-          let popChart= d3.select("#my_dataviz")
+        
+    createPOPScatter(){
+    
+        if(data!=null){
+            var data = this.graphData
+        }
+        else{ //used for debugging purposes
+            data= [{name: 'Ellen',followCount:4, languageCount:5}, {name:'John', followCount:3, languageCount:7}]
+        }
+        //eslint-disable-next-line
+        console.log(data)
+        let height=250
+        let width=250
 
-        let margin = {top: 10, right: 30, bottom: 30, left: 60};
-        let  width = 460 - margin.left - margin.right;
-        let  height = 400 - margin.top - margin.bottom;
+let svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
 
-        // append the svg object to the body of the page
-        svg = d3.select("#pop_chart")
-        .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-            .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+svg.selectAll("circle")
+   .data(data).enter()
+   .append("circle")
+   .attr("cx", function(d) {return d.followCount})
+   .attr("cy", function(d) {return d.languageCount})
+   .attr("fill", function(d) {
+     return "rgb("+d.followCount+","+d.languageCount+",0)"
+   })
 
-        let data = getGraphData(); //this fucntion combines data of language count of a user and that users follower  into an object
-        let color= d3.scaleOrdinal().domain(data).range(d3.schemeSet2)
+svg.selectAll("text")
+  .data(data).enter()
+  .append("text")
+  .attr("x", function(d) {return d.followCount+10})
+  .attr("y", function(d) {return d.languageCount+4})
+  .attr("font-size", "10px")
 
-        // Add X axis
+        //Add X axis
         let x = d3.scaleLinear()
             .domain(data)
             .range([ 0, width ]);
@@ -99,32 +124,16 @@ data: function(){
         svg.append("g")
             .call(d3.axisLeft(y));
 
-        // Add dots
-        svg.append('g')
-            .selectAll("dot")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", function (d) { return x(d.followerCount); } )
-            .attr("cy", function (d) { return y(d.langaugeCount); } )
-            .attr("r", 1.5)
-            .style("fill", "#69b3a2")
-
     
-        }
-
-
+    },
+  }
 }
-    
-           
-  
-}
-  
-
+ 
 
 </script>
 
 <style>
+
 .body{
     margin-top: 10px;
     margin-bottom: 10px;
