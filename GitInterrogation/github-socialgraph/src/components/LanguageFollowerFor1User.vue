@@ -1,7 +1,7 @@
 <template>
     <div class=body>
         <button type=submit class=langCntButton>Language Count: </button>
-        <button type=submit class=follCntButton >Follower Count: {{ this.$octokit.users.getByUsername({ username: this.currentUser}).followers}} </button>
+        <button type=submit class=follCntButton >Follower Count: {{ this.$octokit.users.getByUsername({ username: this.userName}).followers}} </button>
         <p> Languages Mastered  vs       Follower Count </p>
     </div>
 </template>
