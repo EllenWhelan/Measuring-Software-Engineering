@@ -62,8 +62,59 @@ data: function(){
                 //also add follower data
                 followers.forEach(e=> {graphData.push(e.followers)})
            }
-    }
-},
+           //return graphData;
+    },
+
+     createPopGraph(){
+          let popChart= d3.select("#my_dataviz")
+
+        let margin = {top: 10, right: 30, bottom: 30, left: 60};
+        let  width = 460 - margin.left - margin.right;
+        let  height = 400 - margin.top - margin.bottom;
+
+        // append the svg object to the body of the page
+        svg = d3.select("#pop_chart")
+        .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+        let data = getGraphData(); //this fucntion combines data of language count of a user and that users follower  into an object
+        let color= d3.scaleOrdinal().domain(data).range(d3.schemeSet2)
+
+        // Add X axis
+        let x = d3.scaleLinear()
+            .domain(data)
+            .range([ 0, width ]);
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        // Add Y axis
+        var y = d3.scaleLinear()
+            .domain(data)
+            .range([ height, 0]);
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+        // Add dots
+        svg.append('g')
+            .selectAll("dot")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { return x(d.followerCount); } )
+            .attr("cy", function (d) { return y(d.langaugeCount); } )
+            .attr("r", 1.5)
+            .style("fill", "#69b3a2")
+
+    
+        }
+
+
+}
     
            
   
