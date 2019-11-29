@@ -2,8 +2,7 @@
 <div id="app">
       <p class="heading">Social Graph</p>
       <p class="subheading">Welcome, click to enter.</p>
-      
-</div>
+      </div>
 </template>
 
 <script>

@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style>
-
+/* general styling for text*/
 .card{
   color: rgb(46, 44, 44);;
   font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
@@ -49,6 +49,7 @@ export default {
   height:100%;
   position: relative;
 }
+/* image rendering */
 .image{
   height:40%;
   margin-left:0%;

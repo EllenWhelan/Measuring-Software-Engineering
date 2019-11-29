@@ -120,6 +120,7 @@ export default {
   text-align: center;
   margin: 0%;
 }
+/* styling for search button */
 .btn{
   font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
   color: white;
@@ -144,14 +145,14 @@ export default {
     margin:0.4em auto;
   }
 }
-
+/* atyling for search bar  */
 .srch{
   border: 1px solid rgb(61, 59, 59);
   border-radius: 5px 0 0 5px;
   height: 25px;
   /* padding:0.35em 1.2em; */
 }
-
+/* styling for return button */
 .btn2{
   background: rgb(61, 59, 59);
   width: 180px;
